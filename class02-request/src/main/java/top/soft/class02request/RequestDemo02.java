@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 @WebServlet("/requestDemo02")
-public class requestDemo02 extends HttpServlet {
+public class RequestDemo02 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Enumeration<String> headerNames = req.getHeaderNames();
