@@ -17,14 +17,14 @@ public class RequestDemo02 extends HttpServlet {
         while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
             String header = req.getHeader(name);
-            System.out.println(name+"--"+header);
+            System.out.println(name + "--" + header);
         }
 
 //        2.根据名称获取请求头的值
         String header = req.getHeader("user-agent");
-        if (header.contains("Edg")){
+        if (header.contains("Edg")) {
             System.out.println("edge浏览器");
-        }else {
+        } else {
             System.out.println("谷歌浏览器");
         }
     }

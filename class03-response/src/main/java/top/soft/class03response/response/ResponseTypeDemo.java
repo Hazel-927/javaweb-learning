@@ -1,15 +1,15 @@
 package top.soft.class03response.response;
 
-
-import com.sun.security.jgss.GSSUtil;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author dhl51
@@ -50,21 +50,24 @@ public class ResponseTypeDemo extends HttpServlet {
         while ((read = in3.read()) != -1) {
             out.write(read);
         }
+        in3.close();
         out.flush();
         out.close();
     }
 
 
     private void getPdf(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("10.8/pdf");
-        String realPath2 = req.getServletContext().getRealPath("/pdfs/10.8.pdf");
+        resp.setContentType("application/pdf");
+        String realPath2 = req.getServletContext().getRealPath("/pdfs/fdp.pdf");
         File file2 = new File(realPath2);
         InputStream in2 = new FileInputStream(file2);
+
         int read = 0;
         ServletOutputStream out = resp.getOutputStream();
         while ((read = in2.read()) != -1) {
             out.write(read);
         }
+        in2.close();
         out.flush();
         out.close();
     }
@@ -75,18 +78,12 @@ public class ResponseTypeDemo extends HttpServlet {
         File file1 = new File(realPath1);
         InputStream in1 = new FileInputStream(file1);
 
-
-
-        resp.setContentType("512927/txt");
-        String realPath3 = req.getServletContext().getRealPath("/txts/512927.txt");
-        File file3 = new File(realPath3);
-        InputStream in3 = new FileInputStream(file3);
-
         int read = 0;
         ServletOutputStream out = resp.getOutputStream();
         while ((read = in1.read()) != -1) {
             out.write(read);
         }
+        in1.close();
         out.flush();
         out.close();
     }

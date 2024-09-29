@@ -2,7 +2,6 @@ package top.soft.class03response.ServletContext;
 
 
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,7 +21,7 @@ import java.io.InputStream;
 @WebServlet("/servletContextDemo02")
 public class ServletContextDemo02 extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ServletContext context = req.getServletContext();
 
         resp.setContentType("text/html;charset=utf-8");

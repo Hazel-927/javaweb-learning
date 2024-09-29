@@ -7,13 +7,12 @@ import java.io.IOException;
 
 /**
  * @author dong hongliang
- * @deprecated 通过注解配置servlet
  * @data 2024-09-18
+ * @deprecated 通过注解配置servlet
  */
-@WebServlet(value = "/demo3",name = "demo3")
+@WebServlet(value = "/demo3", name = "demo3")
 public class ServletDemo3 implements Servlet {
     /**
-     *
      * @param servletConfig
      * @throws ServletException
      */
@@ -24,6 +23,7 @@ public class ServletDemo3 implements Servlet {
 
     /**
      * 获取配置
+     *
      * @return
      */
     @Override
@@ -33,6 +33,7 @@ public class ServletDemo3 implements Servlet {
 
     /**
      * 执行Servlet方法
+     *
      * @param servletRequest
      * @param servletResponse
      * @throws ServletException
@@ -46,6 +47,7 @@ public class ServletDemo3 implements Servlet {
 
     /**
      * 获取Servlet信息
+     *
      * @return
      */
     @Override

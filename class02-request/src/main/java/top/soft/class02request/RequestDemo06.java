@@ -16,6 +16,6 @@ public class RequestDemo06 extends HttpServlet {
         System.out.println("RequestDemo06被访问......");
 
         ServletContext servletContext = req.getServletContext();
-        servletContext.setAttribute("info","message");
+        servletContext.setAttribute("info", "message");
     }
 }

@@ -6,7 +6,6 @@ import java.io.IOException;
 
 public class ServletDemo1 implements Servlet {
     /**
-     *
      * @param servletConfig
      * @throws ServletException
      */
@@ -17,6 +16,7 @@ public class ServletDemo1 implements Servlet {
 
     /**
      * 获取配置
+     *
      * @return
      */
     @Override
@@ -26,6 +26,7 @@ public class ServletDemo1 implements Servlet {
 
     /**
      * 执行Servlet方法
+     *
      * @param servletRequest
      * @param servletResponse
      * @throws ServletException
@@ -39,6 +40,7 @@ public class ServletDemo1 implements Servlet {
 
     /**
      * 获取Servlet信息
+     *
      * @return
      */
     @Override

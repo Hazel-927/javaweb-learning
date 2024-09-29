@@ -1,7 +1,6 @@
 package top.soft.class03response.ServletContext;
 
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,10 +17,9 @@ import java.io.IOException;
 @WebServlet("/servletContextDemo01")
 public class ServletContextDemo01 extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         ServletContext context = req.getServletContext();
         ServletContext context1 = this.getServletContext();
         System.out.println(context.equals(context1));
-
     }
 }

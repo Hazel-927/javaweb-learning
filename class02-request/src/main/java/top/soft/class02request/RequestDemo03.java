@@ -16,8 +16,8 @@ public class RequestDemo03 extends HttpServlet {
         //1获取请求体数据
         BufferedReader reader = req.getReader();
         //2获取请求体数据
-        String line ;
-        while ((line = reader.readLine())!= null){
+        String line;
+        while ((line = reader.readLine()) != null) {
             System.out.println(line);
         }
     }

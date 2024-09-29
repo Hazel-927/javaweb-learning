@@ -1,6 +1,5 @@
 package top.soft.class03response.practice;
 
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -38,12 +37,12 @@ public class VerifyCode extends HttpServlet {
             graphics.setColor(color);
             Font font = new Font("dialog", Font.BOLD, 30);
             graphics.setFont(font);
-            graphics.drawString(String.valueOf(c),width/5*i,height/2);
+            graphics.drawString(String.valueOf(c), width / 5 * i, height / 2);
         }
         for (int i = 0; i < 11; i++) {
             int x1 = random.nextInt(width);
-            int x2 = random.nextInt(width);
             int y1 = random.nextInt(height);
+            int x2 = random.nextInt(width);
             int y2 = random.nextInt(height);
             Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
             graphics.setColor(color);
