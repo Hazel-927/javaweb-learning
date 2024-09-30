@@ -32,10 +32,12 @@ public class DownloadServlet extends HttpServlet {
         // 找到⽂件服务器路径
         ServletContext servletContext = this.getServletContext();
 
-        String realPath = servletContext.getRealPath("/sources /" + filename);
+        String realPath1 = servletContext.getRealPath("/sources/" + filename);
+        String realPath2 = servletContext.getRealPath("/sources/" + filename);
 
         // ⽤字节流关联
-        FileInputStream fis = new FileInputStream(realPath);
+        FileInputStream fis1 = new FileInputStream(realPath1);
+        FileInputStream fis2 = new FileInputStream(realPath2);
         // 获取⽂件的 mime 类型
         String mimeType = servletContext.getMimeType(filename);
 
@@ -49,9 +51,14 @@ public class DownloadServlet extends HttpServlet {
         ServletOutputStream sos = response.getOutputStream();
         byte[] buff = new byte[1024 * 8];
         int len;
-        while ((len = fis.read(buff)) != -1) {
+        while ((len = fis1.read(buff)) != -1) {
             sos.write(buff, 0, len);
         }
-        fis.close();
+        while ((len = fis1.read(buff)) != -1) {
+            sos.write(buff, 0, len);
+        }
+
+        fis1.close();
+        fis2.close();
     }
 }

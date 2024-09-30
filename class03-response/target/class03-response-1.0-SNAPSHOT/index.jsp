@@ -22,7 +22,22 @@
         }
 
         ul li a:hover {
-            background-color: antiquewhite;
+            background-color: gold;
+        }
+
+        .downloadLink {
+            padding: 20px 50px;
+            height: 40px;
+            background-color: chartreuse;
+            color: black;
+            box-sizing: border-box;
+            margin-right: 10px;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .downloadLink:hover {
+            background-color: pink;
         }
     </style>
 </head>
@@ -44,10 +59,20 @@
     <li>
         <a href="res?type=txt">返回文档</a>
     </li>
-
-    <a href="download?filename=image.png">壁纸</a>
-    <a href="download?filename=a.txt">文件</a>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <li>
+        <a href="download?filename=a.txt" class="downloadLink">下载文件</a>
+    </li>
+    <li>
+        <a href="download?filename=image.png" class="downloadLink">下载壁纸</a>
+    </li>
 </ul>
 </body>
 </html>
