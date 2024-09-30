@@ -3,6 +3,23 @@
 <html>
 <head>
     <title>响应不同类型的文件</title>
+    <script>
+        /*
+        分析：点击超链接或者图⽚，需要换⼀张
+        1.给超链接和图⽚绑定单击事件
+        2.重新设置图⽚的src属性值
+        */
+        window.onload = function () {
+            //1.获取图⽚对象
+            const img = document.getElementById("checkCode");
+            //2.绑定单击事件
+            img.onclick = function () {
+                //加时间戳避免缓存
+                const date = new Date().getTime();
+                img.src = "/verifyCodeServlet?" + date;
+            }
+        }
+    </script>
     <style>
         ul li {
             list-style: none;
@@ -61,6 +78,14 @@
     </li>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <li>
+        <img id="checkCode" src="/verifyCode" alt="img"/>
+        <a id="change" href="">看不清换⼀张？</a>
+    </li>
     <br>
     <br>
     <br>
