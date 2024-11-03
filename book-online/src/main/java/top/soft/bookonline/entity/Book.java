@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 /**
  * @author Hazel
  * @description: TODO
@@ -20,4 +22,6 @@ public class Book {
     private String name;
     private String cover;
     private String author;
+    private BigDecimal price;
+    private String description;
 }

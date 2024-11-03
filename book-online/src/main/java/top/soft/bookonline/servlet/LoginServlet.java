@@ -12,6 +12,8 @@ import top.soft.bookonline.service.UserService;
 import top.soft.bookonline.service.impl.UserServiceImpl;
 import top.soft.bookonline.util.Md5Util;
 
+import java.io.IOException;
+
 /**
  * @author Hazel
  * @description: TODO
@@ -20,12 +22,10 @@ import top.soft.bookonline.util.Md5Util;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private UserService userService;
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         userService = new UserServiceImpl();
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, java.io.IOException {
         String account = req.getParameter("account");
@@ -42,9 +42,8 @@ public class LoginServlet extends HttpServlet {
             resp.getWriter().write("<script>alert('账号或密码错误');location.herf='/';</script>");
         }
     }
-
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, java.io.IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
     }
 }

@@ -49,10 +49,5 @@ public class BookDetailServlet extends HttpServlet {
             // 处理请求路径不符合预期的情况，比如返回错误页面或设置相应的错误提示信息
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request path for book detail.");
         }
-//        int postion=requestPath.lastIndexOf("/");
-//        String id=requestPath.substring(postion+1);
-//        Book book=bookService.getBookById(Integer.parseInt(id));
-//        req.setAttribute("bookList",book);
-//        req.getRequestDispatcher("/book_detail.jsp").forward(req,resp);
     }
 }

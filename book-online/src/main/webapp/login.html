@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>用户登录</title>
+    <title>用户登录/注册</title>
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         /*iconfont图标，第三方登录用*/
@@ -44,25 +45,23 @@
             margin-top: -150px;
         }
 
-        .sign-box {
-            width: 70%;
+        .tab-box {
+            width: 100%;
             display: flex;
-            justify-content: space-between;
-        }
-
-        .sign-box h3 {
-            flex: 1 1 50%;
+            justify-content: center;
             margin-bottom: 15px;
-            margin-right: 10px;
-            padding-bottom: 5px;
         }
 
-        .default {
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
             color: #ddd;
-            border-bottom: 1px solid #ddd;
         }
 
-        .active {
+        .tab.active {
             color: rgb(36, 169, 190);
             border-bottom: 2px solid rgb(36, 169, 190);
         }
@@ -77,6 +76,20 @@
             border-radius: 20px;
             box-shadow: 2px 5px 10px #aaa;
             text-align: center;
+            display: none;
+        }
+
+        /*注册表单样式，与登录表单样式类似，可根据需求微调差异 */
+        .register-box {
+            width: 100%;
+            height: 100%;
+            padding: 10px 5px 5px 10px;
+            background-color: #FFF;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 2px 5px 10px #aaa;
+            text-align: center;
+            display: none;
         }
 
         /*表单的每个子元素都是div，设置外边距*/
@@ -84,28 +97,27 @@
             margin: 15px auto 10px auto;
         }
 
-        /*用户名和密码输入框样式*/
+        /*用户名和密码输入框样式，注册表单也可复用 */
         .input-box {
-            width: 70%;
+            width: 80%; /* 适当增加宽度，使其看起来更协调 */
             margin: 0 auto;
-            padding-left: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding: 12px 15px; /* 增加内边距，让输入内容更舒适 */
             background-color: #fff;
             border: 1px solid #e4e6e5;
             outline: none;
-            border-radius: 3px;
+            border-radius: 5px; /* 加大圆角半径，更美观 */
             color: #333;
-            font-size: 13px;
+            font-size: 14px; /* 适当增大字体大小 */
+            box-sizing: border-box; /* 确保设置的宽度包含内边距和边框 */
         }
 
         /*按钮样式*/
         .btn {
             margin: 0 auto;
-            padding: 10px 140px;
+            padding: 12px 140px; /* 增加内边距，使按钮看起来更饱满 */
             border: none;
             outline: none;
-            border-radius: 3px;
+            border-radius: 5px; /* 加大圆角半径，与输入框风格统一 */
             background-color: rgb(36, 169, 190);
             color: #fff;
             box-shadow: 2px 5px 10px #aaa;
@@ -148,6 +160,7 @@
         }
     </style>
 </head>
+
 <body>
 <div id="top">
     <a href="/index">
@@ -155,11 +168,12 @@
     </a>
 </div>
 <div class="form-wrap">
+    <div class="tab-box">
+        <div class="tab active" data-target="login">密码登录</div>
+        <div class="tab" data-target="register">注册新用户</div>
+    </div>
+
     <form action="/login" class="login-box" method="post">
-        <div class="sign-box">
-            <h3 class="active">密码登录</h3>
-            <h3 class="default">短信登录/注册</h3>
-        </div>
         <div>
             <label>
                 <input class="input-box" name="account" placeholder="手机号/邮箱" type="text">
@@ -186,6 +200,90 @@
             <i class="iconfont" style="color: rgb(230, 23, 45)">&#xe636;</i>
         </div>
     </form>
+
+    <form action="/register" class="register-box" method="post">
+        <div>
+            <label>
+                <input class="input-box" name="account" placeholder="用户名" type="text">
+            </label>
+        </div>
+        <div>
+            <label>
+                <input class="input-box" name="password" placeholder="密码" type="password">
+            </label>
+        </div>
+        <div>
+            <label>
+                <input class="input-box" name="confirm_password" placeholder="确认密码" type="password">
+            </label>
+        </div>
+        <div>
+            <label>
+                <input class="btn" type="submit" value="立即注册">
+            </label>
+        </div>
+    </form>
+
+    <script>
+        // 获取所有的页签元素
+        const tabs = document.querySelectorAll('.tab');
+        // 获取登录表单和注册表单元素
+        const loginForm = document.querySelector('.login-box');
+        const registerForm = document.querySelector('.register-box');
+
+        // 设置登录页签为默认显示
+        document.querySelector('.tab.active').classList.remove('active');
+        document.querySelector('.tab[data-target="login"]').classList.add('active');
+        loginForm.style.display = 'block';
+
+        // 遍历页签元素，添加点击事件监听器
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                // 移除所有页签的激活状态
+                tabs.forEach(t => t.classList.remove('active'));
+                // 设置当前点击的页签为激活状态
+                this.classList.add('active');
+
+                // 根据页签的data-target属性值来展示对应的表单，隐藏其他表单
+                const target = this.dataset.target;
+                if (target === 'login') {
+                    loginForm.style.display = 'block';
+                    registerForm.style.display = 'none';
+                } else if (target === 'register') {
+                    loginForm.style.display = 'none';
+                    registerForm.style.display = 'block';
+                }
+            });
+        });
+
+        // 获取注册表单元素
+        const registerFormElement = document.querySelector('.register-box');
+
+        // 获取密码输入框和确认密码输入框元素
+        const passwordInput = registerFormElement.querySelector('input[name="password"]');
+        const confirmPasswordInput = registerFormElement.querySelector('input[name="confirm_password"]');
+
+        // 给注册表单添加提交事件监听器
+        registerFormElement.addEventListener('submit', function (e) {
+            // 阻止表单默认提交行为
+            e.preventDefault();
+
+            // 获取密码和确认密码的值
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            // 比较密码和确认密码是否相同
+            if (password === confirmPassword) {
+                // 如果相同，提交表单
+                this.submit();
+            } else {
+                // 如果不同，弹出提示框告知用户
+                alert('密码和确认密码不一致，请重新输入');
+            }
+        });
+    </script>
 </div>
+
 </body>
+
 </html>

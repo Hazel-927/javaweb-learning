@@ -18,7 +18,7 @@
             margin-bottom: 10px;
         }
 
-        .search-input {
+        .search- input {
             flex: 0 0 40%;
             height: 35px;
             background-color: #fff;
@@ -27,7 +27,7 @@
             margin-left: 50px;
         }
 
-        .search-btn {
+        .search- btn {
             width: 35px;
             height: 35px;
             background-color: rgb(155, 154, 143);
@@ -62,10 +62,14 @@
             height: 100%;
             border-radius: 20px;
         }
+
+        .col-4 {
+            float: right;
+        }
     </style>
 </head>
 <body>
-    <%
+<%
     Book book = (Book) request.getAttribute("book");
     pageContext.setAttribute("book", book);
 %>
@@ -74,8 +78,8 @@
 </div>
 <div id="search">
     <h2>读书时刻</h2>
-    <input type="text" placeholder="书名、作者、ISBN" class="search-input">
-    <div class="search-btn">
+    <input type="text" placeholder="书名、作者、ISBN" class="search - input">
+    <div class="search - btn">
         <img src="${pageContext.request.contextPath}/images/search.png">
     </div>
 </div>
@@ -83,20 +87,24 @@
     <div class="row">
         <div class="col-8">
             <p style="font-weight: bold;font-size: 22px;color: #232525">${book.name}</p>
+            <p style="font-size: 18px;color: #666;">价格: ¥${book.price}</p>
             <hr>
             <div class="row">
                 <div class="col-4">
                     <img src="${book.cover}" alt="">
                 </div>
-                <div class="col-6">
+                <div class="col-6" style="max-width:60%;">
                     <p style="color: #bdbdbd">${book.author}</p>
+                    <p style="color: #444; margin-top: 10px;">简介: ${book.description}</p>
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col - 4">
             <h3>热门标签</h3>
             <hr>
             <img src="${pageContext.request.contextPath}/images/right.png">
         </div>
     </div>
 </div>
+</body>
+</html>
