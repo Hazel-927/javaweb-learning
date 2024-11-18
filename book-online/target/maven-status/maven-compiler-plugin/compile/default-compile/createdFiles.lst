@@ -2,6 +2,7 @@ top\soft\bookonline\servlet\IndexServlet.class
 top\soft\bookonline\service\impl\UserServiceImpl.class
 top\soft\bookonline\dao\impl\RegisterDaoImpl.class
 top\soft\bookonline\dao\impl\UserDaoImpl.class
+top\soft\bookonline\servlet\RegisterServlet.class
 top\soft\bookonline\dao\impl\BookDaoImpl.class
 top\soft\bookonline\servlet\LogoutServlet.class
 top\soft\bookonline\entity\Book$BookBuilder.class
@@ -11,10 +12,12 @@ top\soft\bookonline\servlet\LoginPageServlet.class
 top\soft\bookonline\entity\Book.class
 top\soft\bookonline\entity\User$UserBuilder.class
 top\soft\bookonline\dao\RegisterDao.class
+top\soft\bookonline\VerifyCode.class
 top\soft\bookonline\service\BookService.class
 top\soft\bookonline\service\UserService.class
 top\soft\bookonline\dao\UserDao.class
 top\soft\bookonline\service\RegisterService.class
+top\soft\bookonline\service\impl\RegisterServiceImpl.class
 top\soft\bookonline\util\Md5Util.class
 top\soft\bookonline\servlet\BookDetailServlet.class
 top\soft\bookonline\servlet\UserPageServlet.class

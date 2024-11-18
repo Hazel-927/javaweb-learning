@@ -1,333 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>用户登录/注册</title>
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <style type="text/css">
-        /*iconfont图标，第三方登录用*/
-        @font-face {
-            font-family: 'iconfont';
-            src: url('//at.alicdn.com/t/font_1427254_qm1jfg7xsu.eot');
-            src: url('//at.alicdn.com/t/font_1427254_qm1jfg7xsu.eot?#iefix') format('embedded-opentype'),
-            url('//at.alicdn.com/t/font_1427254_qm1jfg7xsu.woff2') format('woff2'),
-            url('//at.alicdn.com/t/font_1427254_qm1jfg7xsu.woff') format('woff'),
-            url('//at.alicdn.com/t/font_1427254_qm1jfg7xsu.ttf') format('truetype'),
-            url('//at.alicdn.com/t/font_1427254_qm1jfg7xsu.svg#iconfont') format('svg');
-        }
-
-      .iconfont {
-            font-family: "iconfont", serif!important;
-            font-size: 28px;
-            font-style: normal;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-stroke-width: 0;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
         body {
-            background-size: cover;
-            background-color: rgb(47, 126, 138);
-            background-blend-mode: luminosity;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        /*表单外层包裹容器*/
-      .form-wrap {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 450px;
-            height: 300px;
-            margin-left: -225px;
-            margin-top: -150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* 让内部元素在垂直方向均匀分布空间 */
-            align-items: center; /* 让内部元素在水平方向居中对齐 */
-        }
-
-      .tab-box {
-            width: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
-            margin-bottom: 15px;
-        }
-
-      .tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px 0;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            color: #ddd;
-        }
-
-      .tab.active {
-            color: rgb(36, 169, 190);
-            border-bottom: 2px solid rgb(36, 169, 190);
-        }
-
-        /*登陆表单样式*/
-      .login-box {
-            width: 100%;
-            height: 100%;
-            padding: 10px 5px 5px 10px;
-            background-color: #FFF;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            box-shadow: 2px 5px 10px #aaa;
-            text-align: center;
-            display: none;
-            flex-direction: column; /* 将登录表单内部元素改为纵向排列 */
-            justify-content: flex-start; /* 让内部元素从顶部开始排列 */
-        }
-
-        /*注册表单样式，与登录表单样式类似，可根据需求微调差异 */
-      .register-box {
-            width: 100%;
-            height: 100%;
-            padding: 10px 5px 5px 10px;
-            background-color: #FFF;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            box-shadow: 2px 5px 10px #aaa;
-            text-align: center;
-            display: none;
-            flex-direction: column; /* 将注册表单内部元素改为纵向排列 */
-            justify-content: flex-start; /* 让内部元素从顶部开始排列 */
-        }
-
-        /*表单的每个子元素都是div，设置外边距*/
-        form div {
-            margin: 15px auto 10px auto;
-        }
-
-        /*用户名和密码输入框样式，注册表单也可复用 */
-      .input-box {
-            width: 80%; /* 适当增加宽度，使其看起来更协调 */
-            margin: 0 auto;
-            padding: 12px 15px; /* 增加内边距，让输入内容更舒适 */
-            background-color: #fff;
-            border: 1px solid #e4e6e5;
-            outline: none;
-            border-radius: 5px; /* 加大圆角半径，更美观 */
-            color: #333;
-            font-size: 14px; /* 适当增大字体大小 */
-            box-sizing: border-box; /* 确保设置的宽度包含内边距和边框 */
-        }
-
-        /*按钮样式*/
-      .btn {
-            margin: 0 auto;
-            padding: 12px 140px; /* 增加内边距，使按钮看起来更饱满 */
-            border: none;
-            outline: none;
-            border-radius: 5px; /* 加大圆角半径，与输入框风格统一 */
-            background-color: rgb(36, 169, 190);
-            color: #fff;
-            box-shadow: 2px 5px 10px #aaa;
-            cursor: pointer;
-        }
-
-        /*两条线和第三方登录字样横条区*/
-      .line-box {
-            width: 80%;
-            margin-top: 10px;
-            display: inline-flex;
             align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        /*线条样式*/
-      .line {
-            border-bottom: 1px solid #9b9b9b;
-            flex: 0 0 33%;
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
         }
 
-        /*第三方登录文字样式*/
-      .login-3rd {
-            flex: 0 0 30%;
-            color: #9b9b9b;
-            font-size: 11px;
-            text-align: center;
+        .tab {
+            cursor: pointer;
+            padding: 10px;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
         }
 
-        /*图标外层包裹区样式*/
-      .icon-box {
-            width: 50%;
-            display: inline-flex;
-            justify-content: center;
-            margin-top: 5px;
+        .tab.active {
+            border-bottom: 2px solid #007bff;
         }
 
-        /*图标样式*/
-      .icon-box i {
-            flex: 0 0 33%;
+        .form-box {
+            display: none;
+            margin-top: 20px;
         }
 
-      .remember-box {
-            width: 70%;
+        .form-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-box button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-box button:hover {
+            background-color: #0056b3;
+        }
+
+        .verify-code-container {
             display: flex;
-
+            align-items: center;
+            margin: 10px 0;
         }
 
+        .verify-code-container img {
+            margin-left: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
-
 <body>
-<div id="top">
-    <a href="/index">
-        <h2>book-online</h2>
-    </a>
-</div>
-<div class="form-wrap">
-    <div class="tab-box">
-        <div class="tab active" data-target="login">密码登录</div>
-        <div class="tab" data-target="register">注册新用户</div>
+<div class="container">
+    <div class="tabs">
+        <div class="tab active" data-target="login">登录</div>
+        <div class="tab" data-target="register">注册</div>
     </div>
-
-    <form action="/login" class="login-box" method="post">
-        <div>
+    <div class="form-box login-box" id="loginForm">
+        <form action="/login" method="post">
+            <input type="text" id="account" name="account" placeholder="账号" required>
+            <input type="password" id="password" name="password" placeholder="密码" required>
             <label>
-                <input class="input-box" name="account" placeholder="手机号/邮箱" type="text" id="account">
+                <input type="checkbox" id="remember"> 记住我
             </label>
-        </div>
-        <div>
-            <label>
-                <input class="input-box" name="password" placeholder="密码" type="password" id="password">
-            </label>
-        </div>
-
-        <div class="remember-box">
-            <p style="margin-right: 6px">记住我:</p>
-            <label>
-                <input type="checkbox" id="remember" name="remember">
-            </label>
-        </div>
-
-        <div>
-            <label>
-                <input class="btn" type="submit" value="立即登录">
-            </label>
-        </div>
-        <div class="line-box">
-            <span class="line"></span>
-            <span class="login-3rd">第三方登录</span>
-            <span class="line"></span>
-        </div>
-        <div class="icon-box">
-            <i class="iconfont" style="color: rgb(81, 195, 50)">&#xe600;</i>
-            <i class="iconfont" style="color: rgb(48, 165, 221)">&#xe73e;</i>
-            <i class="iconfont" style="color: rgb(230, 23, 45)">&#xe636;</i>
-        </div>
-    </form>
-    <form action="/register" class="register-box" method="post">
-        <div>
-            <label>
-                <input class="input-box" name="account" placeholder="用户名" type="text" >
-            </label>
-        </div>
-        <div>
-            <label>
-                <input class="input-box" name="password" placeholder="密码" type="password" >
-            </label>
-        </div>
-        <div>
-            <label>
-                <input class="input-box" name="confirm_password" placeholder="确认密码" type="password">
-            </label>
-        </div>
-        <div>
-            <label>
-                <input class="btn" type="submit" value="立即注册">
-            </label>
-        </div>
-    </form>
-
-    <script>
-        // 获取所有的页签元素
-        const tabs = document.querySelectorAll('.tab');
-        // 获取登录表单和注册表单元素
-        const loginForm = document.querySelector('.login-box');
-        const registerForm = document.querySelector('.register-box');
-
-        // 设置登录页签为默认显示
-        document.querySelector('.tab.active').classList.remove('active');
-        document.querySelector('.tab[data-target="login"]').classList.add('active');
-        loginForm.style.display = 'block';
-
-        // 遍历页签元素，添加点击事件监听器
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function () {
-                // 移除所有页签的激活状态
-                tabs.forEach(t => t.classList.remove('active'));
-                // 设置当前点击的页签为激活状态
-                this.classList.add('active');
-
-                // 根据页签的data-target属性值来展示对应的表单，隐藏其他表单
-                const target = this.dataset.target;
-                if (target === 'login') {
-                    loginForm.style.display = 'block';
-                    registerForm.style.display = 'none';
-                } else if (target === 'register') {
-                    loginForm.style.display = 'none';
-                    registerForm.style.display = 'block';
-                }
-            });
-        });
-
-        // 获取注册表单元素
-        const registerFormElement = document.querySelector('.register-box');
-
-        // 获取密码输入框和确认密码输入框元素
-        const passwordInput = registerFormElement.querySelector('input[name="password"]');
-        const confirmPasswordInput = registerFormElement.querySelector('input[name="confirm_password"]');
-
-        // 给注册表单添加提交事件监听器
-        registerFormElement.addEventListener('submit', function (e) {
-            // 阻止表单默认提交行为
-            e.preventDefault();
-
-            // 获取密码和确认密码的值
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-
-            // 比较密码和确认密码是否相同
-            if (password === confirmPassword) {
-                // 如果相同，提交表单
-                this.submit();
-            } else {
-                // 如果不同，弹出提示框告知用户
-                alert('密码和确认密码不一致，请重新输入');
-            }
-        });
-
-        let remember = document.getElementById("remember");
-
-        remember.onclick = function () {
-            let account = document.getElementById("account");
-            let password = document.getElementById("password");
-            if (remember.checked) {
-                account.value = getCookie("account");
-                password.value = getCookie("password");
-            }
-        }
-
-        function getCookie(name) {
-            const keyName = name + "=";
-            const cookies = document.cookie.split(";");
-            for (let i = 0; i < cookies.length; i++) {
-                const value = cookies[i].trim();
-                if (value.indexOf(keyName) === 0) {
-                    return value.substring(keyName.length, value.length);
-                }
-            }
-        }
-    </script>
+            <button type="submit">登录</button>
+        </form>
+    </div>
+    <div class="form-box register-box" id="registerForm">
+        <form action="/register" method="post">
+            <input type="text" name="account" placeholder="账号" required>
+            <input type="password" name="password" placeholder="密码" required>
+            <input type="password" name="confirm_password" placeholder="确认密码" required>
+            <div class="verify-code-container">
+                <input type="text" name="verifyCode" placeholder="验证码" required>
+                <img id="verifyCodeImg" src="" alt="验证码" onclick="refreshVerifyCode(this)">
+            </div>
+            <button type="submit">注册</button>
+        </form>
+    </div>
 </div>
 
-</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    // 获取所有的页签元素
+    const tabs = document.querySelectorAll('.tab');
+    // 获取登录表单和注册表单元素
+    const loginForm = document.querySelector('.login-box');
+    const registerForm = document.querySelector('.register-box');
 
+    // 设置登录页签为默认显示
+    document.querySelector('.tab.active').classList.remove('active');
+    document.querySelector('.tab[data-target="login"]').classList.add('active');
+    loginForm.style.display = 'block';
+
+    // 遍历页签元素，添加点击事件监听器
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            // 移除所有页签的激活状态
+            tabs.forEach(t => t.classList.remove('active'));
+            // 设置当前点击的页签为激活状态
+            this.classList.add('active');
+
+            // 根据页签的data-target属性值来展示对应的表单，隐藏其他表单
+            const target = this.dataset.target;
+            if (target === 'login') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else if (target === 'register') {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
+        });
+    });
+
+    window.onload = function () {
+        // 获取验证码图片元素
+        const verifyCodeImg = document.getElementById('verifyCodeImg');
+        // 发送请求获取验证码图片
+        refreshVerifyCode(verifyCodeImg);
+    };
+
+    function refreshVerifyCode(img) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/verifyCode', true);
+        xhr.responseType = 'blob';
+        xhr.onload = function () {
+            if (this.status === 200) {
+                const blob = new Blob([this.response], {type: 'image/jpeg'});
+                const url = URL.createObjectURL(blob);
+                img.src = url;
+            }
+        };
+        xhr.send();
+    }
+
+    // 获取注册表单元素
+    const registerFormElement = document.querySelector('.register-box');
+
+    // 获取密码输入框和确认密码输入框元素
+    const passwordInput = registerFormElement.querySelector('input[name="password"]');
+    const confirmPasswordInput = registerFormElement.querySelector('input[name="confirm_password"]');
+    const verifyCodeInput = registerFormElement.querySelector('input[name="verifyCode"]');
+
+    // 给注册表单添加提交事件监听器
+    registerFormElement.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const verifyCode = verifyCodeInput.value;
+        axios({
+            method: 'POST',
+            url: '/verifyCode',
+            data: `verifyCode=${verifyCode}`
+        })
+            .then(response => {
+                console.log('验证码验证结果：', response.data);
+                if (response.data.status === 'success') {
+                    if (password === confirmPassword) {
+                        // 使用表单元素的submit方法提交表单
+                        registerFormElement.querySelector('form').submit();
+                    } else {
+                        alert('密码和确认密码不一致，请重新输入');
+                    }
+                } else {
+                    alert(response.data.message);
+                    console.log('验证码错误，请重新输入');
+                }
+            })
+            .catch(error => {
+                console.error('发送验证码验证请求出现错误：', error);
+            });
+    });
+
+    let remember = document.getElementById("remember");
+
+    remember.onclick = function () {
+        let account = document.getElementById("account");
+        let password = document.getElementById("password");
+        if (remember.checked) {
+            account.value = getCookie("account");
+            password.value = getCookie("password");
+        }
+    }
+
+    function getCookie(name) {
+        const keyName = name + "=";
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const value = cookies[i].trim();
+            if (value.indexOf(keyName) === 0) {
+                return value.substring(keyName.length, value.length);
+            }
+        }
+    }
+</script>
+</body>
 </html>

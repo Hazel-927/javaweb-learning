@@ -29,6 +29,7 @@ public class RegisterServlet extends HttpServlet {
         String account = request.getParameter("account");
         // 获取用户在注册表单中输入的密码
         String password = request.getParameter("password");
+        System.out.println("获取到的密码值: " + password);
         // 使用构建器模式创建User对象
         User user = User.builder()
                 .account(account)
@@ -46,8 +47,7 @@ public class RegisterServlet extends HttpServlet {
             // 注册失败，设置响应内容类型和编码
             response.setContentType("text/html;charset=UTF-8");
             // 向用户返回注册失败的提示信息
-            response.getWriter().write("<script>alert('注册失败，账号是否已存在或稍后重试');location.href='/register';</script>");
-            response.sendRedirect("/login-page");
+            response.getWriter().write("<script>alert('注册失败，账号可能已存在或稍后重试');location.href='/login-page';</script>");
         }
     }
 
