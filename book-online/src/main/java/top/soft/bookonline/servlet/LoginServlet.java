@@ -4,6 +4,7 @@ package top.soft.bookonline.servlet;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,11 +31,24 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, java.io.IOException {
         String account = req.getParameter("account");
         String password = req.getParameter("password");
+
+        String remember = req.getParameter("remember");
+
         String md5Password = Md5Util.crypt(password);
         System.out.println(md5Password);
         User user = userService.signIn(account, md5Password);
         if (user != null) {
             req.getSession().setAttribute("user", user);
+
+            if (remember != null) {
+                Cookie usernameCookie = new Cookie("account", account);
+                Cookie passwordCookie = new Cookie("password", password);
+                usernameCookie.setMaxAge(60 * 60 * 24 * 7);
+                passwordCookie.setMaxAge(60 * 60 * 24 * 7);
+                resp.addCookie(usernameCookie);
+                resp.addCookie(passwordCookie);
+            }
+
             resp.sendRedirect("/index");
         } else {
             resp.setContentType("text/html;charset=UTF-8");

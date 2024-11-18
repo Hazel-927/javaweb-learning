@@ -17,7 +17,7 @@
             url('//at.alicdn.com/t/font_1427254_qm1jfg7xsu.svg#iconfont') format('svg');
         }
 
-        .iconfont {
+      .iconfont {
             font-family: "iconfont", serif!important;
             font-size: 28px;
             font-style: normal;
@@ -35,7 +35,7 @@
         }
 
         /*表单外层包裹容器*/
-        .form-wrap {
+      .form-wrap {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -43,16 +43,20 @@
             height: 300px;
             margin-left: -225px;
             margin-top: -150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 让内部元素在垂直方向均匀分布空间 */
+            align-items: center; /* 让内部元素在水平方向居中对齐 */
         }
 
-        .tab-box {
+      .tab-box {
             width: 100%;
             display: flex;
             justify-content: center;
             margin-bottom: 15px;
         }
 
-        .tab {
+      .tab {
             flex: 1;
             text-align: center;
             padding: 10px 0;
@@ -61,13 +65,13 @@
             color: #ddd;
         }
 
-        .tab.active {
+      .tab.active {
             color: rgb(36, 169, 190);
             border-bottom: 2px solid rgb(36, 169, 190);
         }
 
         /*登陆表单样式*/
-        .login-box {
+      .login-box {
             width: 100%;
             height: 100%;
             padding: 10px 5px 5px 10px;
@@ -77,10 +81,12 @@
             box-shadow: 2px 5px 10px #aaa;
             text-align: center;
             display: none;
+            flex-direction: column; /* 将登录表单内部元素改为纵向排列 */
+            justify-content: flex-start; /* 让内部元素从顶部开始排列 */
         }
 
         /*注册表单样式，与登录表单样式类似，可根据需求微调差异 */
-        .register-box {
+      .register-box {
             width: 100%;
             height: 100%;
             padding: 10px 5px 5px 10px;
@@ -90,6 +96,8 @@
             box-shadow: 2px 5px 10px #aaa;
             text-align: center;
             display: none;
+            flex-direction: column; /* 将注册表单内部元素改为纵向排列 */
+            justify-content: flex-start; /* 让内部元素从顶部开始排列 */
         }
 
         /*表单的每个子元素都是div，设置外边距*/
@@ -98,7 +106,7 @@
         }
 
         /*用户名和密码输入框样式，注册表单也可复用 */
-        .input-box {
+      .input-box {
             width: 80%; /* 适当增加宽度，使其看起来更协调 */
             margin: 0 auto;
             padding: 12px 15px; /* 增加内边距，让输入内容更舒适 */
@@ -112,7 +120,7 @@
         }
 
         /*按钮样式*/
-        .btn {
+      .btn {
             margin: 0 auto;
             padding: 12px 140px; /* 增加内边距，使按钮看起来更饱满 */
             border: none;
@@ -125,7 +133,7 @@
         }
 
         /*两条线和第三方登录字样横条区*/
-        .line-box {
+      .line-box {
             width: 80%;
             margin-top: 10px;
             display: inline-flex;
@@ -133,13 +141,13 @@
         }
 
         /*线条样式*/
-        .line {
+      .line {
             border-bottom: 1px solid #9b9b9b;
             flex: 0 0 33%;
         }
 
         /*第三方登录文字样式*/
-        .login-3rd {
+      .login-3rd {
             flex: 0 0 30%;
             color: #9b9b9b;
             font-size: 11px;
@@ -147,7 +155,7 @@
         }
 
         /*图标外层包裹区样式*/
-        .icon-box {
+      .icon-box {
             width: 50%;
             display: inline-flex;
             justify-content: center;
@@ -155,9 +163,16 @@
         }
 
         /*图标样式*/
-        .icon-box i {
+      .icon-box i {
             flex: 0 0 33%;
         }
+
+      .remember-box {
+            width: 70%;
+            display: flex;
+
+        }
+
     </style>
 </head>
 
@@ -176,14 +191,22 @@
     <form action="/login" class="login-box" method="post">
         <div>
             <label>
-                <input class="input-box" name="account" placeholder="手机号/邮箱" type="text">
+                <input class="input-box" name="account" placeholder="手机号/邮箱" type="text" id="account">
             </label>
         </div>
         <div>
             <label>
-                <input class="input-box" name="password" placeholder="密码" type="password">
+                <input class="input-box" name="password" placeholder="密码" type="password" id="password">
             </label>
         </div>
+
+        <div class="remember-box">
+            <p style="margin-right: 6px">记住我:</p>
+            <label>
+                <input type="checkbox" id="remember" name="remember">
+            </label>
+        </div>
+
         <div>
             <label>
                 <input class="btn" type="submit" value="立即登录">
@@ -200,16 +223,15 @@
             <i class="iconfont" style="color: rgb(230, 23, 45)">&#xe636;</i>
         </div>
     </form>
-
     <form action="/register" class="register-box" method="post">
         <div>
             <label>
-                <input class="input-box" name="account" placeholder="用户名" type="text">
+                <input class="input-box" name="account" placeholder="用户名" type="text" >
             </label>
         </div>
         <div>
             <label>
-                <input class="input-box" name="password" placeholder="密码" type="password">
+                <input class="input-box" name="password" placeholder="密码" type="password" >
             </label>
         </div>
         <div>
@@ -281,6 +303,28 @@
                 alert('密码和确认密码不一致，请重新输入');
             }
         });
+
+        let remember = document.getElementById("remember");
+
+        remember.onclick = function () {
+            let account = document.getElementById("account");
+            let password = document.getElementById("password");
+            if (remember.checked) {
+                account.value = getCookie("account");
+                password.value = getCookie("password");
+            }
+        }
+
+        function getCookie(name) {
+            const keyName = name + "=";
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                const value = cookies[i].trim();
+                if (value.indexOf(keyName) === 0) {
+                    return value.substring(keyName.length, value.length);
+                }
+            }
+        }
     </script>
 </div>
 

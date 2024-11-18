@@ -2,9 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>异步请求，添加品牌</title>
+    <link href="css/style.css" rel="stylesheet">
 </head>
-<body>
+<body style="display:flex;justify-content: center;margin-top: 200px">
+<div style="width: 40%;background-color: #eaf3f3;border-radius:10px;display: flex;flex-direction: column;justify-content: center;box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);">
+    <table>
+        <tr>
+            <td>
+                <label for="id">
+                    品牌编号
+                </label>
+            </td>
+            <td><input id="id" name="id" type="text"></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="brandName">
+                    品牌名称
+                </label>
+            </td>
+            <td><input id="brandName" name="brandName" type="text"></td>
+        </tr>
 
+        <tr>
+            <td>
+                <label for="companyName">
+                    企业名称
+                </label>
+            </td>
+            <td><input id="companyName" name="companyName" type="text"></td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="ordered">
+                    排序
+                </label>
+            </td>
+            <td><input id="ordered" name="ordered" type="number"></td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="description">
+                    描述信息
+                </label>
+            </td>
+            <td>
+            <textarea cols="50" id="description" name="description" rows="10">
+            </textarea>
+            </td>
+        </tr>
+    </table>
+
+    <div style="padding-left: 290px;padding-bottom: 20px">
+        <input id="btn" style="background-color: #167f92" type="button" value="提交"/>
+    </div>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    document.getElementById("btn").onclick = function () {
+        let formData = {
+            id: '',
+            brandName: '',
+            companyName: '',
+            ordered: '',
+            description: ''
+        }
+        //从输入框获取用户输入值
+        formData.id = document.getElementById("id").value;//编号
+        formData.brandName = document.getElementById("brandName").value;
+        formData.companyName = document.getElementById("companyName").value;
+        formData.ordered = document.getElementById("ordered").value;
+        formData.description = document.getElementById("description").value;
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/addBrand',
+            data: formData
+        }).then(function (res) {
+            if (res.status === 200) {
+                location.href = "brand.html"
+            }
+        })
+    }
+</script>
 </body>
 </html>

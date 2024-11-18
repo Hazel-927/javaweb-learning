@@ -9,8 +9,8 @@ class UserDaoTest {
     void insertUser() {
         UserDao userdao = new UserDaoImpl();
         User user = User.builder()
-                .account("dhl")
-                .nickname("dhl").password("123456").address("江苏南京").avatar("https://img.zcool.cn/community/031f8gbnpgb8kw5crterdrj3531.png").build();
+                .account("l")
+                .nickname("l").password("1").address("江苏南京").avatar("https://img.zcool.cn/community/031f8gbnpgb8kw5crterdrj3531.png").build();
         userdao.insertUser(user);
     }
 }

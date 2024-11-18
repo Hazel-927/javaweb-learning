@@ -43,6 +43,10 @@
             height: 300px;
             margin-left: -225px;
             margin-top: -150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 让内部元素在垂直方向均匀分布空间 */
+            align-items: center; /* 让内部元素在水平方向居中对齐 */
         }
 
         .tab-box {
@@ -77,6 +81,8 @@
             box-shadow: 2px 5px 10px #aaa;
             text-align: center;
             display: none;
+            flex-direction: column; /* 将登录表单内部元素改为纵向排列 */
+            justify-content: flex-start; /* 让内部元素从顶部开始排列 */
         }
 
         /*注册表单样式，与登录表单样式类似，可根据需求微调差异 */
@@ -90,6 +96,8 @@
             box-shadow: 2px 5px 10px #aaa;
             text-align: center;
             display: none;
+            flex-direction: column; /* 将注册表单内部元素改为纵向排列 */
+            justify-content: flex-start; /* 让内部元素从顶部开始排列 */
         }
 
         /*表单的每个子元素都是div，设置外边距*/
@@ -158,6 +166,13 @@
         .icon-box i {
             flex: 0 0 33%;
         }
+
+        .remember-box {
+            width: 70%;
+            display: flex;
+
+        }
+
     </style>
 </head>
 
@@ -176,14 +191,22 @@
     <form action="/login" class="login-box" method="post">
         <div>
             <label>
-                <input class="input-box" name="account" placeholder="手机号/邮箱" type="text">
+                <input class="input-box" id="account" name="account" placeholder="手机号/邮箱" type="text">
             </label>
         </div>
         <div>
             <label>
-                <input class="input-box" name="password" placeholder="密码" type="password">
+                <input class="input-box" id="password" name="password" placeholder="密码" type="password">
             </label>
         </div>
+
+        <div class="remember-box">
+            <p style="margin-right: 6px">记住我:</p>
+            <label>
+                <input id="remember" name="remember" type="checkbox">
+            </label>
+        </div>
+
         <div>
             <label>
                 <input class="btn" type="submit" value="立即登录">
@@ -200,7 +223,6 @@
             <i class="iconfont" style="color: rgb(230, 23, 45)">&#xe636;</i>
         </div>
     </form>
-
     <form action="/register" class="register-box" method="post">
         <div>
             <label>
@@ -281,6 +303,28 @@
                 alert('密码和确认密码不一致，请重新输入');
             }
         });
+
+        let remember = document.getElementById("remember");
+
+        remember.onclick = function () {
+            let account = document.getElementById("account");
+            let password = document.getElementById("password");
+            if (remember.checked) {
+                account.value = getCookie("account");
+                password.value = getCookie("password");
+            }
+        }
+
+        function getCookie(name) {
+            const keyName = name + "=";
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                const value = cookies[i].trim();
+                if (value.indexOf(keyName) === 0) {
+                    return value.substring(keyName.length, value.length);
+                }
+            }
+        }
     </script>
 </div>
 

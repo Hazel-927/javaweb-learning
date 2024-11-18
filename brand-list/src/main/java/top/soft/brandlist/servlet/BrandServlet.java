@@ -2,6 +2,7 @@ package top.soft.brandlist.servlet;
 
 
 import com.alibaba.fastjson.JSON;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,8 +28,19 @@ public class BrandServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        List<Brand> brandList = getBrandList();
+
         resp.setContentType("application/json;charset=UTF-8");
+        ServletContext context = req.getServletContext();
+        Object brands = context.getAttribute("brands");
+
+        List<Brand> brandList = null;
+
+        if (brands instanceof List) {
+            brandList = (List<Brand>) brands;
+        }
+        brandList = brandList == null ? getBrandList() : brandList;
+        context.setAttribute("brands", brandList);
+
         req.getServletContext().setAttribute("brands", brandList);
         String jsonString = JSON.toJSONString(brandList);
         resp.getWriter().write(jsonString);
