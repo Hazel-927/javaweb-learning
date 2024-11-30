@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: top.soft.bookonline.dao.UserDaoTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.117 s <<< FAILURE! -- in top.soft.bookonline.dao.UserDaoTest
-top.soft.bookonline.dao.UserDaoTest.insertUser -- Time elapsed: 0.114 s <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.132 s <<< FAILURE! -- in top.soft.bookonline.dao.UserDaoTest
+top.soft.bookonline.dao.UserDaoTest.insertUser -- Time elapsed: 0.130 s <<< ERROR!
 org.springframework.dao.DuplicateKeyException: PreparedStatementCallback; SQL [insert into t_user(account,password,nickname,avatar) values(?,?,?,?)]; Duplicate entry 'lm' for key 't_user.account'; nested exception is java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'lm' for key 't_user.account'
 	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:247)
 	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:70)
