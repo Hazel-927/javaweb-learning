@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 /**
@@ -43,7 +42,15 @@ public class LeaveFormService {
             leaveFormMapper.insert(leaveForm);
 
             ProcessFlowMapper processFlowMapper = sqlSession.getMapper(ProcessFlowMapper.class);
-            ProcessFlow flow1 = ProcessFlow.builder().formId(leaveForm.getFormId()).operatorId(employee.getEmployeeId()).action("apply").createTime(new Date()).orderNo(1).state("complete").isLast(0).build();
+            ProcessFlow flow1 = ProcessFlow.builder()
+                    .formId(leaveForm.getFormId())
+                    .operatorId(employee.getEmployeeId())
+                    .action("apply")
+                    .createTime(new Date())
+                    .orderNo(1)
+                    .state("complete")
+                    .isLast(0)
+                    .build();
             processFlowMapper.insert(flow1);
 
             int level = employee.getLevel();
@@ -63,7 +70,9 @@ public class LeaveFormService {
                     if (hours >= 72) {
                         flow2.setIsLast(0);
                         processFlowMapper.insert(flow2);
+
                         Employee boss = employeeService.selectLeader(leader.getEmployeeId());
+
                         ProcessFlow flow3 = new ProcessFlow();
                         flow3.setFormId(leaveForm.getFormId());
                         flow3.setOperatorId(boss.getEmployeeId());
@@ -138,14 +147,16 @@ public class LeaveFormService {
     public void audit(Long formId, Long operatorId, String result, String reason) {
         MybatisUtils.executeUpdate(sqlSession -> {
             // 无论同意/驳回，当前任务状态变更为complete
-            ProcessFlowMapper processFlowMapper = sqlSession.getMapper(ProcessFlowMapper.class);
+            ProcessFlowMapper processFlowMapper =
+                    sqlSession.getMapper(ProcessFlowMapper.class);
             List<ProcessFlow> flowList = processFlowMapper.selectByFormId(formId);
             if (flowList.size() == 0) {
                 throw new LeaveFormException("无效的审批流程");
             }
 
             // 获取当前任务 ProcessFlow 对象
-            List<ProcessFlow> processList = flowList.stream().filter(p -> Objects.equals(p.getOperatorId(), operatorId) && "process".equals(p.getState())).collect(Collectors.toList());
+            List<ProcessFlow> processList = flowList.stream()
+                    .filter(p -> Objects.equals(p.getOperatorId(), operatorId) && "process".equals(p.getState())).toList();
             ProcessFlow process;
             if (processList.size() == 0) {
                 throw new LeaveFormException("未找到待处理任务节点");
@@ -184,23 +195,21 @@ public class LeaveFormService {
                 noticeMapper.insert(Notice.builder().receiverId(form.getEmployeeId()).content(notice1).createTime(new Date()).build());
 
 // 发给审批人的通知
-                String notice2 = String.format("%s-%s提起请假申请[%s-%s]您已%s，审批意见：%s，审批流程已结束", employee.getTitle(), employee.getName(), sdf.format(form.getStartTime()), sdf.format(form.getEndTime()), operator.getTitle(), operator.getName(), strResult, reason);
+                String notice2 = String.format("%s-%s提起请假申请[%s-%s]您已%s，审批意见：%s，审批流程已结束",
+                        employee.getTitle(),
+                        employee.getName(),
+                        sdf.format(form.getStartTime()),
+                        sdf.format(form.getEndTime()),
+                        strResult, reason);
                 noticeMapper.insert(Notice.builder().receiverId(operator.getEmployeeId()).content(notice2).createTime(new Date()).build());
             } else {
                 // readyList 包含所有后续任务节点
-                List<ProcessFlow> readyList = flowList.stream().filter(p -> "ready".equals(p.getState())).collect(Collectors.toList());
+                List<ProcessFlow> readyList = flowList.stream().filter(p -> "ready".equals(p.getState())).toList();
                 if ("approved".equals(result)) {
                     // 如果当前任务不是最后一个节点且审批通过，那么下一个节点的状态从 ready 变为 process
                     ProcessFlow readyProcess = readyList.get(0);
                     readyProcess.setState("process");
                     processFlowMapper.update(readyProcess);
-                }
-// 如果当前任务不是最后一个节点且审批通过，那么下一个节点的状态从 ready 变为 process
-                if ("approved".equals(result)) {
-                    ProcessFlow readyProcess = readyList.get(0);
-                    readyProcess.setState("process");
-                    processFlowMapper.update(readyProcess);
-
 
 // 消息1：通知表单提交人，部门经理已经审批通过，交由上级继续审批
                     String notice1 = String.format("您的请假申请[%s-%s]%s%s已通过，审批意见：%s，请继续等待上级审批", sdf.format(form.getStartTime()),
