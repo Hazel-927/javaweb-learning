@@ -11,15 +11,9 @@ import top.soft.classoa.utils.MybatisUtils;
  */
 
 public class UserMapper {
-    /**
-     * 根据用户名查询用户
-     *
-     * @param username 用户名
-     * @return 用户
-     */
-    public User selectByUsername(String username) {
-        return (User) MybatisUtils.executeQuery(
-                sqlSession -> sqlSession.selectOne("top.soft.classoa.mapper.UserMapper.selectByUsername", username)
-        );
+    public User selectByUserName(String username) {
+        return (User) MybatisUtils.executeQuery(sqlSession ->
+                sqlSession.selectOne("top.soft.classoa.mapper.UserMapper.selectByUserName", username));
     }
+
 }

@@ -14,10 +14,6 @@ import java.sql.SQLException;
  */
 
 public class DruidDataSourceFactory extends UnpooledDataSourceFactory {
-    public DruidDataSourceFactory() {
-        this.dataSource = new DruidDataSource();
-    }
-
     @Override
     public DataSource getDataSource() {
         try {
@@ -26,5 +22,9 @@ public class DruidDataSourceFactory extends UnpooledDataSourceFactory {
             throw new RuntimeException(e);
         }
         return this.dataSource;
+    }
+
+    public DruidDataSourceFactory() {
+        this.dataSource = new DruidDataSource();
     }
 }

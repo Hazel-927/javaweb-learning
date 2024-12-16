@@ -33,25 +33,26 @@
 <body>
 <div id="app">
     <el-form :model="form" :rules="rules" class="login-box" label-width="80px" ref="loginForm">
-        <h2 class="login-title">OA办公系统</h2>
-        <el-form-item label="用户名" prop="username">
-            <el-input placeholder="请输入用户名" v-model="form.username"></el-input>
+        <h2 class="login-title">OA 办公系统</h2>
+        <el-form-item label="账号" prop="username">
+            <el-input placeholder="请输入账号" type="text" v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-            <el-input placeholder="请输入密码" v-model="form.password"></el-input>
+            <el-input placeholder="请输入密码" type="password" v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button class="login-btn" type="primary" v-on:click="onSubmit()">登录</el-button>
         </el-form-item>
     </el-form>
 </div>
+
 <script>
     const Main = {
         data() {
             return {
                 form: {
                     username: '',
-                    password: ''
+                    password: '',
                 },
                 rules: {
                     username: [
@@ -59,39 +60,44 @@
                             required: true,
                             message: '账号不能为空',
                             trigger: 'blur'
-                        },
+                        }
                     ],
                     password: [
                         {
                             required: true,
                             message: '密码不能为空',
                             trigger: 'blur'
-                        },
-                    ]
+                        }
+                    ],
                 }
             }
         },
         methods: {
             onSubmit() {
+                // 取出表单，进行校验
                 const form = this.$refs['loginForm'];
-                form.validate(res => {
-                    console.log(res)
+                form.validate((res) => {
+                    console.log(res);
                     if (res) {
                         const form = this.form;
                         const $message = this.$message;
                         const params = new URLSearchParams();
-                        params.append('username', form.username);
-                        params.append('password', form.password);
-                        axios.post('/api/login', params, {}).then(res => {
-                            const json = res.data;
+                        params.append("username", form.username);
+                        params.append("password", form.password);
+                        axios.post("/api/login", params).then((response) => {
+                            const json = response.data;
+                            // 登录成功，代码为0
                             if (json.code === '0') {
-                                localStorage.setItem("id", json.data.user.userId);
+                                // 将返回用户信息存入本地存储
+                                localStorage.setItem("uid", json.data.user.userId);
                                 localStorage.setItem("eid", json.data.user.employeeId);
+                                // 将页面跳转到index.html页面
                                 window.location.href = '/index.html';
                             } else {
-                                $message.error({message: json.message, offset: 100})
+                                // 登录失败，通过element的消息提示组件，显示失败原因
+                                $message.error({message: json.message, offset: 100});
                             }
-                        })
+                        });
                     }
                 });
             }
@@ -99,7 +105,7 @@
     };
     const app = Vue.createApp(Main);
     app.use(ElementPlus);
-    app.mount('#app');
+    app.mount("#app");
 </script>
 </body>
 </html>

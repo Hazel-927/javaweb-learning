@@ -1,20 +1,14 @@
 package top.soft.classoa.utils;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-/**
- * @author Hazel
- * @description: TODO
- * @date 2024/11/30 15:50
- */
 
 @Setter
 @Getter
@@ -40,6 +34,8 @@ public class ResponseUtils {
 
     public String toJsonString() {
         ObjectMapper objectMapper = new ObjectMapper();
+//        注册JavaTimeModule模块，以支持Java8的日期时间类型
+        objectMapper.registerModule(new JavaTimeModule());
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         try {
             return objectMapper.writeValueAsString(this);
